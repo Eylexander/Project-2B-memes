@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Memes Collection</title>
+	</head>
+
+	<style>
+		body{
+    		background: linear-gradient(135deg, #333333, #666666);
+    		margin: 0;
+    		padding: 0;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+		h1{
+		    color: #fff;
+		    font-size: 50px;
+		    font-weight: 700;
+			font-family: inherit;
+		}
+		.main{
+		    width: 100%;
+		    height: 100vh;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    flex-direction: column;
+		}
+		#bouton-afficher{
+		    background: #222222;
+		    color: #fff;
+		    border: 1px solid #fff;
+		    padding: 10px 20px;
+		    border-radius: 5px;
+		    text-decoration: none;
+		    font-size: 20px;
+			margin: 20px;
+		}
+		#bouton-tp{
+			color : #fff;
+		    font-size: 20px;
+			margin-bottom: 20px;
+		}
+
+	</style>
+
+	<body>
+		<div class="main">
+			<h1>Eylexander's Meme Generator</h1>
+			<div id="conteneur"></div>
+			<a id="bouton-tp" href="">Click on me to open the meme!</a>
+			<button id="bouton-afficher">Reload</button>
+		</div>
+
+		<script>
+			function afficherContenu(url) {
+				const conteneur = document.getElementById('conteneur');
+				if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
+					const video = document.createElement('video');
+					video.controls = true;
+					video.src = url;
+					video.style.maxHeight = window.innerHeight * 0.6 + 'px';
+					video.style.maxWidth = window.innerWidth * 0.8 + 'px';
+					conteneur.appendChild(video);
+				} else if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp')) {
+					const image = document.createElement('img');
+					image.src = url;
+					image.style.maxHeight = window.innerHeight * 0.6 + 'px';
+					image.style.maxWidth = window.innerWidth * 0.8 + 'px';
+					conteneur.appendChild(image);
+				} else {
+					conteneur.textContent = 'Le format de fichier n\'est pas pris en charge : ' + url;
+				}
+			}
+
+			function obtenirNouvelleUrl() {
+				fetch('https://api.eylexander.xyz/')
+						.then(response => response.json())
+						.then(data => {
+							const url = data.url;
+							const conteneur = document.getElementById('conteneur');
+							conteneur.innerHTML = '';
+							afficherContenu(url);
+						})
+						.catch(error => {
+							console.error('Erreur :', error);
+						});
+			}
+
+			// Appeler la fonction obtenirNouvelleUrl() lorsque le bouton est cliqué
+			document.getElementById('bouton-afficher').addEventListener('click', obtenirNouvelleUrl);
+
+			// Ouvrir le lien dans un nouvel onglet lorsque le bouton est cliqué
+			document.getElementById('bouton-tp').addEventListener('click', function() {
+				const url = document.getElementById('conteneur').firstChild.src;
+				window.open(url, '_blank');
+			});
+
+			// Appeler la fonction obtenirNouvelleUrl() une première fois au chargement de la page
+			obtenirNouvelleUrl();
+		</script>
+	</body>
+</html>
