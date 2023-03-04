@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
+<!DOCTYPE html><html><head>
 		<meta charset="UTF-8">
 		<title>Meme Generator</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,15 +8,13 @@
         <meta property="og:url" content="https://eylexander.xyz/memegen/">
         <meta property="og:title" content="Meme Generator">
         <meta property="og:description" content="A meme generator using my own meme API">
-        <meta property="og:image" content="https://eylexander.xyz/memes/image0-1.jpg">
+        <meta property="og:image" content="https://eylexander.xyz/memes/hqdefault%20(2).jpg">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@eylexander">
         <meta name="twitter:title" content="Meme Generator">
         <meta name="twitter:description" content="A meme generator using my own meme API">
-        <meta name="twitter:image:src" content="https://eylexander.xyz/memes/image0-1.jpg">
+        <meta name="twitter:image:src" content="https://eylexander.xyz/memes/hqdefault (2).jpg">
         <meta name="twitter:creator" content="@eylexander">
-	</head>
-
 	<style>
 		body{
     		background: linear-gradient(135deg, #333333, #666666);
@@ -56,7 +52,9 @@
 			margin-bottom: 20px;
 		}
 
-	</style>
+	</style></head>
+
+	
 
 	<body>
 		<div class="main">
@@ -76,12 +74,7 @@
 					video.style.maxHeight = window.innerHeight * 0.6 + 'px';
 					video.style.maxWidth = window.innerWidth * 0.8 + 'px';
 					conteneur.appendChild(video);
-				} else if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp')) {
-					const metaTag1 = document.querySelector('meta[property="og:image"]');
-					const metaTag2 = document.querySelector('meta[name="twitter:image:src"]');
-					metaTag1.setAttribute('content', url);
-					metaTag2.setAttribute('content', url);
-					
+				} else if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp')) {		
 					const image = document.createElement('img');
 					image.src = url;
 					image.style.maxHeight = window.innerHeight * 0.6 + 'px';
@@ -118,5 +111,5 @@
 			// Appeler la fonction obtenirNouvelleUrl() une première fois au chargement de la page
 			obtenirNouvelleUrl();
 		</script>
-	</body>
-</html>
+	
+</body></html>

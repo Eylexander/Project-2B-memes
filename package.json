@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^3.3.0"
+  },
+  "name": "project-2b-memes",
+  "description": "Home page for meme collection using the meme API",
+  "version": "0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eylexander/Project-2B-memes.git"
+  },
+  "author": "Eylexander",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Eylexander/Project-2B-memes/issues"
+  },
+  "homepage": "https://github.com/Eylexander/Project-2B-memes#readme"
+}
