@@ -2,11 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 const cron = require('node-cron');
-// const fetch = require('node-fetch');
 
 const filePath = path.join(__dirname, 'index.html');
 
-// cron.schedule('0 * * * *', () => {
+cron.schedule('0 * * * *', () => {
 
     fetch('https://api.eylexander.xyz/?get=image')
         .then(res => res.json())
@@ -39,4 +38,4 @@ const filePath = path.join(__dirname, 'index.html');
         })
         .catch(err => console.error(err));
 
-// });
+});
