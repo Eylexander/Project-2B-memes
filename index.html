@@ -27,8 +27,9 @@
 
 		<div class="main">
 			<h1>Eylexander's Meme Generator</h1>
-			<div id="conteneur"></div>
-			<a id="bouton-tp" href="">Click on me to open the meme!</a>
+			<a href="#" id="aconteneur" target="_blank" title="#">
+				<div id="conteneur"></div>
+			</a>
 			<div class="container">
 				<button class="buttonclick" id="previousUrl">
 					<span>Go back</span>
@@ -51,7 +52,7 @@
 			const previousUrls = [];
 
 			function getPreviousUrl() {
-				return previousUrls[previousUrls.length - 2];
+				return previousUrls[previousUrls.length - 1];
 			}
 
 			function afficherContenu(url) {
@@ -60,13 +61,13 @@
 					const video = document.createElement('video');
 					video.controls = true;
 					video.src = url;
-					video.style.maxHeight = window.innerHeight * 0.6 + 'px';
+					video.style.maxHeight = window.innerHeight * 0.5 + 'px';
 					video.style.maxWidth = window.innerWidth * 0.8 + 'px';
 					conteneur.appendChild(video);
 				} else if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp') || url.endsWith('.PNG')) {		
 					const image = document.createElement('img');
 					image.src = url;
-					image.style.maxHeight = window.innerHeight * 0.6 + 'px';
+					image.style.maxHeight = window.innerHeight * 0.5 + 'px';
 					image.style.maxWidth = window.innerWidth * 0.8 + 'px';
 					conteneur.appendChild(image);
 				} else {
@@ -80,7 +81,10 @@
 					.then(data => {
 						const url = data.url;
 						const conteneur = document.getElementById('conteneur');
+						const aconteneur = document.getElementById('aconteneur');
 						conteneur.innerHTML = '';
+						aconteneur.href = url;
+						aconteneur.title = 'Click to open in new tab';
 						afficherContenu(url);
 
 						// Ajouter l'url actuelle à previousUrls
@@ -93,12 +97,6 @@
 
 			// Appeler la fonction obtenirNouvelleUrl() lorsque le bouton est cliqué
 			document.getElementById('bouton-afficher').addEventListener('click', obtenirNouvelleUrl);
-
-			// Ouvrir le lien dans un nouvel onglet lorsque le bouton est cliqué
-			document.getElementById('bouton-tp').addEventListener('click', function() {
-				const url = document.getElementById('conteneur').firstChild.src;
-				window.open(url, '_blank');
-			});
 
 			// Retourne à l'url précédente
 			document.getElementById('previousUrl').addEventListener('click', function() {
