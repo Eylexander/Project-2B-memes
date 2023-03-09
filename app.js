@@ -30,7 +30,7 @@ cron.schedule('0 * * * *', () => {
                         if (err) {
                             console.error(err);
                         } else {
-                            console.log(`Updated ${meta1.attr('name')} and ${meta2.attr('name')} to ${newImageURL}`);
+                            console.log(`Updated ${meta1.attr('name')} and ${meta2.attr('property')} to ${newImageURL}`);
                         }
                     });
                 }
