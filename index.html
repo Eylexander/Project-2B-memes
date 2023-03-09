@@ -13,69 +13,57 @@
         <meta name="twitter:site" content="@eylexander">
         <meta name="twitter:title" content="Meme Generator">
         <meta name="twitter:description" content="A meme generator using my own meme API">
-        <meta name="twitter:image:src" content="https://eylexander.xyz/memes/hqdefault (2).jpg">
+        <meta name="twitter:image:src" content="https://eylexander.xyz/memes/hqdefault%20(2).jpg">
         <meta name="twitter:creator" content="@eylexander">
-	<style>
-		body{
-    		background: linear-gradient(135deg, #333333, #666666);
-    		margin: 0;
-    		padding: 0;
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		}
-		h1{
-		    color: #fff;
-		    font-size: 50px;
-		    font-weight: 700;
-			font-family: inherit;
-			text-align: center;
-		}
-		.main{
-		    width: 100%;
-		    height: 100vh;
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    flex-direction: column;
-		}
-		#bouton-afficher{
-		    background: #222222;
-		    color: #fff;
-		    border: 1px solid #fff;
-		    padding: 10px 20px;
-		    border-radius: 5px;
-		    text-decoration: none;
-		    font-size: 20px;
-			margin: 20px;
-		}
-		#bouton-tp{
-			color : #fff;
-		    font-size: 20px;
-			margin-bottom: 20px;
-		}
 
-	</style></head>
+		<link rel="stylesheet" href="./tools/style.css">
+		<link rel="icon" href="./tools/favicon.ico" type="image/x-icon">
+	</head>
 
 	
 
 	<body>
+		<span id="circle"></span>
+
 		<div class="main">
 			<h1>Eylexander's Meme Generator</h1>
 			<div id="conteneur"></div>
 			<a id="bouton-tp" href="">Click on me to open the meme!</a>
-			<button id="bouton-afficher">Reload</button>
+			<div class="container">
+				<button class="buttonclick" id="previousUrl">
+					<span>Go back</span>
+					<svg viewBox="-5 -5 110 110" preserveAspectRatio="none" aria-hidden="true">
+					  	<path d="M0,0 C0,0 100,0 100,0 C100,0 100,100 100,100 C100,100 0,100 0,100 C0,100 0,0 0,0"/>
+					</svg>
+				</button>
+				<button class="buttonclick" id="bouton-afficher">
+					<span>Reload</span>
+					<svg viewBox="-5 -5 110 110" preserveAspectRatio="none" aria-hidden="true">
+					  	<path d="M0,0 C0,0 100,0 100,0 C100,0 100,100 100,100 C100,100 0,100 0,100 C0,100 0,0 0,0"/>
+					</svg>
+				</button>
+			</div>
 		</div>
 
 		<script>
+			// Créer un objet pour stocker les urls précédentes
+
+			const previousUrls = [];
+
+			function getPreviousUrl() {
+				return previousUrls[previousUrls.length - 2];
+			}
+
 			function afficherContenu(url) {
 				const conteneur = document.getElementById('conteneur');
-				if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
+				if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov') || url.endsWith('.MP4')) {
 					const video = document.createElement('video');
 					video.controls = true;
 					video.src = url;
 					video.style.maxHeight = window.innerHeight * 0.6 + 'px';
 					video.style.maxWidth = window.innerWidth * 0.8 + 'px';
 					conteneur.appendChild(video);
-				} else if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp')) {		
+				} else if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp') || url.endsWith('.PNG')) {		
 					const image = document.createElement('img');
 					image.src = url;
 					image.style.maxHeight = window.innerHeight * 0.6 + 'px';
@@ -88,16 +76,19 @@
 
 			function obtenirNouvelleUrl() {
 				fetch('https://api.eylexander.xyz/')
-						.then(response => response.json())
-						.then(data => {
-							const url = data.url;
-							const conteneur = document.getElementById('conteneur');
-							conteneur.innerHTML = '';
-							afficherContenu(url);
-						})
-						.catch(error => {
-							console.error('Erreur :', error);
-						});
+					.then(response => response.json())
+					.then(data => {
+						const url = data.url;
+						const conteneur = document.getElementById('conteneur');
+						conteneur.innerHTML = '';
+						afficherContenu(url);
+
+						// Ajouter l'url actuelle à previousUrls
+						previousUrls.push(url);
+					})
+					.catch(error => {
+						console.error('Erreur :', error);
+					});				
 			}
 
 			// Appeler la fonction obtenirNouvelleUrl() lorsque le bouton est cliqué
@@ -107,6 +98,19 @@
 			document.getElementById('bouton-tp').addEventListener('click', function() {
 				const url = document.getElementById('conteneur').firstChild.src;
 				window.open(url, '_blank');
+			});
+
+			// Retourne à l'url précédente
+			document.getElementById('previousUrl').addEventListener('click', function() {
+				const conteneur = document.getElementById('conteneur');
+
+				// Récupérer l'URL précédente et l'afficher
+				if (previousUrls.length > 1) {
+					conteneur.innerHTML = '';
+					let previousUrl = previousUrls.pop();
+					previousUrl = previousUrls.pop();
+					afficherContenu(previousUrl);
+				}
 			});
 
 			// Appeler la fonction obtenirNouvelleUrl() une première fois au chargement de la page
