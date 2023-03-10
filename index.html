@@ -107,24 +107,11 @@
 			document.getElementById('previousUrl').addEventListener('click', function() {
 				const conteneur = document.getElementById('conteneur');
 
-				// Récupérer l'URL précédente et l'afficher
-				// if (previousUrls.length > 1 && i > 0) {
-				// 	conteneur.innerHTML = '';
-				// 	afficherContenu(getPreviousUrl(i-1));
-
-				// 	// Afficher l'URL précédente dans le lien de la page
-				// 	const aconteneur = document.getElementById('aconteneur');
-				// 	aconteneur.href = getPreviousUrl();
-				// 	console.log(previousUrls);
-				// 	previousUrls.splice(i-1, 1);
-				// 	console.log(previousUrls);
-				// 	i--;
-				// }
-
+				// Si l'index est inférieur ou égal à 0, ne rien faire
 				if (imageIndex <= 0) return;
-
 				imageIndex--;
 
+				// Remplacer le contenu du conteneur par l'url précédente
 				conteneur.innerHTML = '';
 				afficherContenu(previousUrls[imageIndex]);
 			});
