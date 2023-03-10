@@ -57,10 +57,7 @@
 			// Créer un objet pour stocker les urls précédentes
 
 			const previousUrls = [];
-
-			function getPreviousUrl() {
-				return previousUrls[previousUrls.length - 1];
-			}
+			let imageIndex = -1;
 
 			function afficherContenu(url) {
 				const conteneur = document.getElementById('conteneur');
@@ -96,6 +93,7 @@
 
 						// Ajouter l'url actuelle à previousUrls
 						previousUrls.push(url);
+						imageIndex = previousUrls.length - 1;
 					})
 					.catch(error => {
 						console.error('Erreur :', error);
@@ -110,12 +108,25 @@
 				const conteneur = document.getElementById('conteneur');
 
 				// Récupérer l'URL précédente et l'afficher
-				if (previousUrls.length > 1) {
-					conteneur.innerHTML = '';
-					let previousUrl = previousUrls.pop();
-					previousUrl = previousUrls.pop();
-					afficherContenu(previousUrl);
-				}
+				// if (previousUrls.length > 1 && i > 0) {
+				// 	conteneur.innerHTML = '';
+				// 	afficherContenu(getPreviousUrl(i-1));
+
+				// 	// Afficher l'URL précédente dans le lien de la page
+				// 	const aconteneur = document.getElementById('aconteneur');
+				// 	aconteneur.href = getPreviousUrl();
+				// 	console.log(previousUrls);
+				// 	previousUrls.splice(i-1, 1);
+				// 	console.log(previousUrls);
+				// 	i--;
+				// }
+
+				if (imageIndex <= 0) return;
+
+				imageIndex--;
+
+				conteneur.innerHTML = '';
+				afficherContenu(previousUrls[imageIndex]);
 			});
 
 			// Appeler la fonction obtenirNouvelleUrl() une première fois au chargement de la page
