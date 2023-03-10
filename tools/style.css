@@ -33,8 +33,9 @@ h1{
     text-align: center;
     position: absolute;
     top: 0;
-    width: 80wv;
-    margin: 7.5vh 0;
+    width: 80vw;
+    /* margin: 7.5vh 0; */
+    padding: 4vh 0 2.5vh 0;
 }
 .main{
     width: 100vw;
@@ -44,6 +45,7 @@ h1{
     align-items: center;
     flex-direction: column;
 }
+
 .container {
     display: flex;
     justify-content: center;
@@ -111,10 +113,11 @@ body::after {
     font-weight: 500;
     font-size: clamp(16px, 5vw, 32px);
     line-height: 1;
-    padding: 1em 1.5em;
+    padding: 2vh 1.5vw;
     margin: 5vh;
     position: relative;
     transition: filter var(--motion-duration);
+    font-size: 3vh;
 }
   
 .buttonclick:hover {
@@ -159,4 +162,23 @@ body::after {
   
 .buttonclick:active > svg > path {
     d: path("M0,0 C30,10 70,10 100,0 C95,30 95,70 100,100 C70,90 30,90 0,100 C5,70 5,30 0,0");
+}
+
+@media screen and (orientation:portrait) {
+    .buttonclick {
+        padding: 1.5vh 7.5vw;
+    }
+
+    .h1 {
+        font-size: 7.5vw;
+    }
+
+    #aconteneur {
+        position: relative;
+        top: 5vh;
+        /* width: 100%;
+        height: 100%; */
+        /* bottom: 40%; */
+        /* left: 50%; */
+    }
 }
