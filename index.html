@@ -34,7 +34,7 @@
 
 		<div class="main">
 			<h1>Eylexander's Meme Generator</h1>
-			<a href="#" id="aconteneur" target="_blank" title="#">
+			<a href="#" id="aconteneur" target="_blank" title="Click to open in new tab">
 				<div id="conteneur"></div>
 			</a>
 			<div class="container">
@@ -61,6 +61,7 @@
 
 			function afficherContenu(url) {
 				const conteneur = document.getElementById('conteneur');
+				const aconteneur = document.getElementById('aconteneur');
 				if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov') || url.endsWith('.MP4')) {
 					const video = document.createElement('video');
 					video.controls = true;
@@ -77,6 +78,9 @@
 				} else {
 					conteneur.textContent = 'Le format de fichier n\'est pas pris en charge : ' + url;
 				}
+
+				// Change image source
+				aconteneur.href = url;
 			}
 
 			function obtenirNouvelleUrl() {
@@ -85,10 +89,7 @@
 					.then(data => {
 						const url = data.url;
 						const conteneur = document.getElementById('conteneur');
-						const aconteneur = document.getElementById('aconteneur');
 						conteneur.innerHTML = '';
-						aconteneur.href = url;
-						aconteneur.title = 'Click to open in new tab';
 						afficherContenu(url);
 
 						// Ajouter l'url actuelle à previousUrls
