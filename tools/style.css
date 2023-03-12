@@ -110,13 +110,12 @@
         font-size: 7.5vw;
     }
 
-    #aconteneur {
-        position: relative;
-        top: 5vh;
+    .buttonsContainer {
+        position: fixed;
     }
 
-    .container {
-        position: fixed;
+    #mainContainer .sci li img {
+        width: 2.5vh !important;
     }
 }
   
@@ -190,6 +189,7 @@ body::before {
     height: 100%;
     background: linear-gradient(#f00, #f0f);
     clip-path: circle(30% at right 70%);
+    z-index: -1;
 }
 body::after {
     content: "";
@@ -200,6 +200,7 @@ body::after {
     height: 100%;
     background: linear-gradient(#2196f3, #e91e63 60%);
     clip-path: circle(20% at 5% 10%);
+    z-index: -1;
 }
 #circle::after {
     content: "";
@@ -231,7 +232,7 @@ body::after {
     flex-direction: column;
 }
 
-.container {
+.buttonsContainer {
     position: absolute;
     width: 75%;
     bottom: 0;
@@ -307,3 +308,66 @@ body::after {
 /* End of init Buttons */
 
 /* End of init main CSS */
+
+/* Initialize the Interaction Buttons */
+
+#mainContainer {
+    position: relative;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    /* transition: transform 0.5s ease-in-out; */
+}
+
+#mainContainer .sci {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+#mainContainer .sci li {
+    position: absolute;
+    margin: 2.5vh 0;
+    opacity: 0;
+    transform: translateX(-20%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, right 0.5s ease-in-out;
+    transition-delay: calc(0.2s * var(--i));
+}
+
+#mainContainer .sci li img {
+    width: 2.5vw;
+}
+
+#mainContainer .sci a {
+    cursor: default;
+}
+
+#mainContainer:hover .sci li {
+    transform: translateX(0%);
+    opacity: 1;
+}
+
+#mainContainer .sci li span {
+    opacity: 0;
+    left: 100%;
+    position: absolute;
+    align-self: center;
+    align-items: center;
+    transform: translateX(50%);
+}
+
+#mainContainer .sci li:hover span {
+    opacity: 1;
+    transform: translateX(10%);
+    transition: all 0.5s ease-in-out;
+}
+
+/* End of init Interaction Buttons */

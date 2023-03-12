@@ -18,9 +18,8 @@
 
 		<link rel="stylesheet" href="./tools/style.css">
 		<link rel="icon" href="./tools/favicon.ico" type="image/x-icon">
+		<script defer src="./tools/scripts.js"></script>
 	</head>
-
-	
 
 	<body>
 
@@ -32,12 +31,29 @@
 
 		<span id="circle"></span>
 
+		
 		<div class="main">
 			<h1>Eylexander's Meme Generator</h1>
-			<a href="#" id="aconteneur" target="_blank" title="Click to open in new tab">
-				<div id="conteneur"></div>
-			</a>
-			<div class="container">
+			<div id="mainContainer">
+				<div id="contentContainer"></div>
+				<ul class="sci">
+					<li style="--i:1">
+						<img src="./images/likeButton.svg" alt="Like" id="likeButton">
+						<span>Like</span>
+					</li>
+					<li style="--i:2">
+						<img src="./images/dislikeButton.svg" alt="Dislike" id="dislikeButton">
+						<span>Dislike</span>
+					</li>
+					<li style="--i:3">
+						<a href="#" id="aContainer" target="_blank" title="Click to open in new tab">
+							<img src="./images/downloadButton.svg" alt="Download" id="downloadButton">
+							<span>Download</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="buttonsContainer">
 				<button class="buttonclick" id="previousUrl">
 					<span>Go back</span>
 					<svg viewBox="-5 -5 110 110" preserveAspectRatio="none" aria-hidden="true">
@@ -52,73 +68,5 @@
 				</button>
 			</div>
 		</div>
-
-		<script>
-			// Créer un objet pour stocker les urls précédentes
-
-			const previousUrls = [];
-			let imageIndex = -1;
-
-			function afficherContenu(url) {
-				const conteneur = document.getElementById('conteneur');
-				const aconteneur = document.getElementById('aconteneur');
-				if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov') || url.endsWith('.MP4')) {
-					const video = document.createElement('video');
-					video.controls = true;
-					video.src = url;
-					video.style.maxHeight = window.innerHeight * 0.5 + 'px';
-					video.style.maxWidth = window.innerWidth * 0.8 + 'px';
-					conteneur.appendChild(video);
-				} else if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp') || url.endsWith('.PNG')) {		
-					const image = document.createElement('img');
-					image.src = url;
-					image.style.maxHeight = window.innerHeight * 0.5 + 'px';
-					image.style.maxWidth = window.innerWidth * 0.8 + 'px';
-					conteneur.appendChild(image);
-				} else {
-					conteneur.textContent = 'Le format de fichier n\'est pas pris en charge : ' + url;
-				}
-
-				// Change image source
-				aconteneur.href = url;
-			}
-
-			function obtenirNouvelleUrl() {
-				fetch('https://api.eylexander.xyz/')
-					.then(response => response.json())
-					.then(data => {
-						const url = data.url;
-						const conteneur = document.getElementById('conteneur');
-						conteneur.innerHTML = '';
-						afficherContenu(url);
-
-						// Ajouter l'url actuelle à previousUrls
-						previousUrls.push(url);
-						imageIndex = previousUrls.length - 1;
-					})
-					.catch(error => {
-						console.error('Erreur :', error);
-					});				
-			}
-
-			// Appeler la fonction obtenirNouvelleUrl() lorsque le bouton est cliqué
-			document.getElementById('bouton-afficher').addEventListener('click', obtenirNouvelleUrl);
-
-			// Retourne à l'url précédente
-			document.getElementById('previousUrl').addEventListener('click', function() {
-				const conteneur = document.getElementById('conteneur');
-
-				// Si l'index est inférieur ou égal à 0, ne rien faire
-				if (imageIndex <= 0) return;
-				imageIndex--;
-
-				// Remplacer le contenu du conteneur par l'url précédente
-				conteneur.innerHTML = '';
-				afficherContenu(previousUrls[imageIndex]);
-			});
-
-			// Appeler la fonction obtenirNouvelleUrl() une première fois au chargement de la page
-			obtenirNouvelleUrl();
-		</script>
 	
 </body></html>
