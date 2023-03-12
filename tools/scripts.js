@@ -27,7 +27,7 @@ function afficherContenu(url) {
 }
 
 function obtenirNouvelleUrl() {
-    fetch('https://api.eylexander.xyz/')
+    fetch('https://memes.eylexander.xyz/api/v1/')
         .then(response => response.json())
         .then(data => {
             const url = data.url;
