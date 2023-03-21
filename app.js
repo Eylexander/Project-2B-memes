@@ -7,7 +7,7 @@ const filePath = path.join(__dirname, 'index.html');
 
 cron.schedule('0 * * * *', () => {
 
-    fetch('https://api.eylexander.xyz/?get=image')
+    fetch('https://memes.eylexander.xyz/api/v1?get=image')
         .then(res => res.json())
         .then(json => {
             const newImageURL = json.url;
